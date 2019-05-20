@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,8 +32,8 @@ public class Pessoa implements Serializable {
     private String email;
     @Column(nullable = false)
     private String telefone;
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-    private List<Endereco> enderecos;
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    private Endereco endereco;
 
     public Pessoa(Long id, String nome, String email, String telefone) {
         this.id = id;
@@ -43,17 +44,15 @@ public class Pessoa implements Serializable {
 
     public Pessoa() {
     }
-    
-    
 
-    public List<Endereco> getEnderecos() {
-        return enderecos;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
-
+    
     public String getNome() {
         return nome;
     }
