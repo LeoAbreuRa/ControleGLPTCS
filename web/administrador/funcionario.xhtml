@@ -25,7 +25,7 @@
             <!--mostra a toolbar se mostra_toolbar == false-->
             <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{funcionarioC.mostrar_toolbar}">
                 <p:toolbarGroup  >
-                    <p:commandButton value="Salvar" action="#{funcionarioC.salvar()}" update="panelGrop" />
+                    <p:commandButton value="Salvar" action="#{funcionarioC.salvar()}"  update="panelGrop" />
                     <p:separator></p:separator>
                     <p:commandButton value="Cancelar" actionListener="#{funcionarioC.novaPesquisa}" immediate="true"
                                      update="@form" global="false" />
@@ -107,6 +107,9 @@
                     
                     <p:outputLabel for="telefone" value="Telefone: " />
                     <p:inputMask id="telefone" value="#{funcionarioC.funcionario.telefone}" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="cpf" value="CPF: " />
+                    <p:inputMask id="cpf" value="#{funcionarioC.funcionario.cpf}" mask="999.999.999-99" style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="matricula" value="Matricula :" />
                     <p:inputText id="matricula" value="#{funcionarioC.funcionario.matricula}" requiredMessage="Matricula é obrigatório" 
