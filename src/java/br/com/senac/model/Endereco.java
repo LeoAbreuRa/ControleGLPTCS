@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,7 +39,7 @@ public class Endereco implements Serializable {
     private String logradouro;
     @Column(nullable = false)
     private String estado;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
 

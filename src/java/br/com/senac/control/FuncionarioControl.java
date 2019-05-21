@@ -1,6 +1,5 @@
 package br.com.senac.control;
 
-
 import br.com.senac.dao.FuncionarioDao;
 import br.com.senac.dao.FuncionarioDaoImpl;
 import br.com.senac.dao.HibernateUtil;
@@ -21,8 +20,8 @@ import org.hibernate.Session;
  */
 @ManagedBean(name = "funcionarioC")
 @ViewScoped
-public class FuncionarioControl implements Serializable{
-    
+public class FuncionarioControl implements Serializable {
+
     private Funcionario funcionario;
     private FuncionarioDao funcionarioDao;
     private List<Endereco> enderecos;
@@ -31,15 +30,15 @@ public class FuncionarioControl implements Serializable{
     private DataModel<Funcionario> modelFuncionarios;
     private List<Funcionario> funcionarios;
     private boolean mostrar_toolbar;
-    
-    private void abreSessao(){
-        if(session == null){
+
+    private void abreSessao() {
+        if (session == null) {
             session = HibernateUtil.abreSessao();
-        }else if(!session.isOpen()){
+        } else if (!session.isOpen()) {
             session = HibernateUtil.abreSessao();
         }
     }
-    
+
     public void novo() {
         mostrar_toolbar = !mostrar_toolbar;
     }
@@ -51,7 +50,7 @@ public class FuncionarioControl implements Serializable{
     public void preparaAlterar() {
         mostrar_toolbar = !mostrar_toolbar;
     }
-    
+
     public void pesquisar() {
         funcionarioDao = new FuncionarioDaoImpl();
         try {
@@ -65,17 +64,18 @@ public class FuncionarioControl implements Serializable{
             session.close();
         }
     }
-    
-    public void limpar(){
+
+    public void limpar() {
         funcionario = new Funcionario();
     }
-    
-    public void carregarParaAlterar(){
+
+    public void carregarParaAlterar() {
         mostrar_toolbar = !mostrar_toolbar;
         funcionario = modelFuncionarios.getRowData();
+        endereco = funcionario.getEndereco();
     }
-    
-    public void excluir(){
+
+    public void excluir() {
         funcionario = modelFuncionarios.getRowData();
         funcionarioDao = new FuncionarioDaoImpl();
         abreSessao();
@@ -87,12 +87,12 @@ public class FuncionarioControl implements Serializable{
             limpar();
         } catch (Exception e) {
             System.out.println("erro ao excluir: " + e.getMessage());
-        }finally{
+        } finally {
             session.close();
         }
     }
-    
-    public void salvar(){
+
+    public void salvar() {
         funcionarioDao = new FuncionarioDaoImpl();
         abreSessao();
         try {
@@ -101,20 +101,24 @@ public class FuncionarioControl implements Serializable{
             funcionarioDao.salvarOuAlterar(funcionario, session);
             Mensagem.salvar("Funcionario: " + funcionario.getNome());
             funcionario = null;
+            endereco = null;
         } catch (HibernateException e) {
             System.out.println("Erro ao salvar funcionario" + e.getMessage());
-        
-        }finally{
+
+        } catch (Exception e) {
+            System.out.println("Erro no salvar funcionarioDao Controle "
+                    + e.getMessage());
+        } finally {
             session.close();
         }
     }
-    
-    public void limparTela(){
+
+    public void limparTela() {
         limpar();
     }
 
     public Funcionario getFuncionario() {
-        if(funcionario == null){
+        if (funcionario == null) {
             funcionario = new Funcionario();
         }
         return funcionario;
@@ -123,7 +127,7 @@ public class FuncionarioControl implements Serializable{
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-    
+
     public List<Endereco> getEnderecos() {
         return enderecos;
     }
@@ -167,7 +171,5 @@ public class FuncionarioControl implements Serializable{
     public void setMostrar_toolbar(boolean mostrar_toolbar) {
         this.mostrar_toolbar = mostrar_toolbar;
     }
-    
-    
-    
+
 }
