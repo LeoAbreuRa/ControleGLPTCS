@@ -95,7 +95,7 @@ public void salvar(){
     
     try {
         abreSessao();
-        cliente.setEnderecos((List<Endereco>) endereco);
+        cliente.setEndereco(endereco);
         endereco.setPessoa(cliente);
         dao.salvarOuAlterar(cliente, session);
         Mensagem.salvar("Cliente " + cliente.getNome());

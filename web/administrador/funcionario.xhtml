@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../logado/template.xhtml"
+                template="./../WEB-INF/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
@@ -42,7 +42,7 @@
 
             <!--inicio da tela de pesquisa-->
             <h:panelGroup id="aba1" rendered="#{!funcionarioC.mostrar_toolbar}" >
-                <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
+                <p:panelGrid id="panelGridPesq" columns="2"  columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
 
                     <p:outputLabel for="nome_pesquisa" value="Nome :" />
                     <p:inputText id="nome_pesquisa" value="#{funcionarioC.funcionario.nome}" style="width: 100%" />
@@ -50,25 +50,25 @@
 
                 </p:panelGrid>
 
-                <p:dataTable id="dadosFuncionario" value="#{funcionarioC.modelFuncionarios}" var="funcionario" reflow="true"
+                <p:dataTable id="dadosFuncionario" value="#{funcionarioC.modelFuncionarios}" var="funcionario" 
                              style="margin-top: 20px;"  emptyMessage="Nenhum funcionário encontrado">
-                    <p:column headerText="Nome" priority="1">
+                    <p:column headerText="Nome" >
                         <h:outputText value="#{funcionario.nome}" />
                     </p:column>
-                    <p:column headerText="E-mail" priority="1">
+                    <p:column headerText="E-mail">
                         <h:outputText value="#{funcionario.email}" />
                     </p:column>
-                    <p:column headerText="Telefone" priority="1">
+                    <p:column headerText="Telefone" >
                         <h:outputText value="#{funcionario.telefone}" />
                     </p:column>
-                    <p:column headerText="CPF" priority="1">
+                    <p:column headerText="CPF" >
                         <h:outputText value="#{funcionario.cpf}" />
                     </p:column>
-                    <p:column headerText="Matricula" priority="1">
+                    <p:column headerText="Matricula" >
                         <h:outputText value="#{funcionario.matricula}" />
                     </p:column>
 
-                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" priority="1" >
+                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" >
                         <p:commandButton icon="ui-icon-pencil" title="Alterar"
                                          process="@this" update="@form" actionListener="#{funcionarioC.carregarParaAlterar()}">
                             <f:setPropertyActionListener target="#{funcionarioC.funcionario}" value="#{funcionario}"   />          
@@ -93,8 +93,8 @@
             <!--fim da tela de pesquisa-->
 
             <!--inicio da tela de cadastro (salvar e alterar)-->
-            <h:panelGroup id="panelGrop" rendered="#{funcionarioC.mostra_toolbar}" >
-                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
+            <h:panelGroup id="panelGrop" rendered="#{funcionarioC.mostrar_toolbar}" >
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
 
 
