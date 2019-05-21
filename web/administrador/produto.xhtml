@@ -50,11 +50,11 @@
 
                 </p:panelGrid>
 
-                <p:dataTable id="dadosProduto" value="#{ProdutoP.modelProduto}" var="produto" reflow="true"
+                <p:dataTable id="dadosProduto" value="#{ProdutoP.modelProduto}" var="produto" 
                              style="margin-top: 20px;"  emptyMessage="Nenhum produto encontrado">
                    
 
-                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" priority="1" >
+                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario"  >
                         <p:commandButton icon="ui-icon-pencil" title="Alterar"
                                          process="@this" update="@form" actionListener="#{funcionarioC.carregarParaAlterar()}">
                             <f:setPropertyActionListener target="#{funcionarioC.funcionario}" value="#{funcionario}"   />          
@@ -80,7 +80,7 @@
 
             <!--inicio da tela de cadastro (salvar e alterar)-->
             <h:panelGroup id="panelGrop" rendered="#{funcionarioC.mostra_toolbar}" >
-                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
+                <p:panelGrid columns="2"  columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
 
 
