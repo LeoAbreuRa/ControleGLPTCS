@@ -41,7 +41,7 @@
             <p:messages id="mens" autoUpdate="true" />
 
             <!--inicio da tela de pesquisa-->
-            <h:panelGroup id="aba1" rendered="#{!funcionarioC.mostrar_toolbar}" >
+            <h:panelGroup id="aba1" rendered="#{!ProdutoP.mostrar_Toolbar}" >
                 <p:panelGrid id="panelGridPesq" columns="2" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
 
                     <p:outputLabel for="nome_pesquisa" value="Nome :" />
@@ -79,7 +79,7 @@
             <!--fim da tela de pesquisa-->
 
             <!--inicio da tela de cadastro (salvar e alterar)-->
-            <h:panelGroup id="panelGrop" rendered="#{funcionarioC.mostra_toolbar}" >
+            <h:panelGroup id="panelGrop" rendered="#{ProdutoP.mostrar_Toolbar}" >
                 <p:panelGrid columns="2"  columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
 
