@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
  */
 public class GeradorTabela {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ControleGlpPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ControleGlpFinalPU");
         emf.close();
     }
 }
