@@ -28,7 +28,7 @@ import org.hibernate.Session;
 @ManagedBean(name ="ProdutoP")
 @ViewScoped
 public class ProdutoControle  implements Serializable {
-      private boolean mostrar_Toolbar = false;
+      private boolean mostrar_Toolbar;
       private String pesqProduto = "";
       private String pesqPorTipo = "";
       private String pesqPorMarca = "";
@@ -47,13 +47,21 @@ public class ProdutoControle  implements Serializable {
         dao = new ProdutoDaoImpl();
     }
 
-    public void mudaToolbar() {
+    public void mostrar_Toolbar() {
         produto = new Produto();
         produtos = new ArrayList();
         pesqProduto = "";
         pesqPorTipo = "";
         pesqPorMarca = "";
         
+        mostrar_Toolbar = !mostrar_Toolbar;
+    }
+    
+     public void novo() {
+        mostrar_Toolbar = !mostrar_Toolbar;
+    }
+
+    public void novaPesquisa() {
         mostrar_Toolbar = !mostrar_Toolbar;
     }
     

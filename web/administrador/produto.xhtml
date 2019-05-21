@@ -1,16 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Produto</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../logado/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="conteudo">
+        <h1 class="jr-titulo1">Produto</h1>
+
+        <h:form id="form_pesquisa">
+
+            <!--mostra a toolbar se mostra_toolbar == true-->
+            <p:toolbar styleClass="toolbar" rendered="#{!ProdutoP.mostrar_Toolbar}">
+                <p:toolbarGroup  >
+                    <p:commandButton value="Pesquisar" actionListener="#{ProdutoP.pesquisar()}"
+                                     update="dadosProduto" process="@this panelGridPesq" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Novo" actionListener="#{ProdutoP.novo}" update="@form" global="false"  />
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <!--mostra a toolbar se mostra_toolbar == false-->
+            <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{ProdutoP.mostrar_Toolbar}">
+                <p:toolbarGroup  >
+                    <p:commandButton value="Salvar" action="#{ProdutoP.salvar()}" update="panelGrop" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Cancelar" actionListener="#{ProdutoP.novaPesquisa}" immediate="true"
+                                     update="@form" global="false" />
+                </p:toolbarGroup>
+
+                <p:toolbarGroup align="right">
+
+
+                </p:toolbarGroup>
+
+            </p:toolbar>
+
+            <p:messages id="mens" autoUpdate="true" />
+
+            <!--inicio da tela de pesquisa-->
+            <h:panelGroup id="aba1" rendered="#{!funcionarioC.mostrar_toolbar}" >
+                <p:panelGrid id="panelGridPesq" columns="2" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
+
+                    <p:outputLabel for="nome_pesquisa" value="Nome :" />
+                    <p:inputText id="nome_pesquisa" value="#{funcionarioC.funcionario.nome}" style="width: 100%" />
+                    <p:spacer />
+
+                </p:panelGrid>
+
+                <p:dataTable id="dadosProduto" value="#{ProdutoP.modelProduto}" var="produto" reflow="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum produto encontrado">
+                   
+
+                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" priority="1" >
+                        <p:commandButton icon="ui-icon-pencil" title="Alterar"
+                                         process="@this" update="@form" actionListener="#{funcionarioC.carregarParaAlterar()}">
+                            <f:setPropertyActionListener target="#{funcionarioC.funcionario}" value="#{funcionario}"   />          
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{funcionarioC.excluir()}"
+                                         update="dadosFuncionario" title="Excluir" >
+                            <p:confirm header="Confirmação" message="Tem certeza exclusão?" 
+                                       icon="ui-icon-alert" />
+                            <f:setPropertyActionListener target="#{funcionarioC.funcionario}" value="#{funcionario}"   />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGroup> 
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" 
+                                 icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" 
+                                 icon="ui-icon-close" />
+            </p:confirmDialog>
+            <!--fim da tela de pesquisa-->
+
+            <!--inicio da tela de cadastro (salvar e alterar)-->
+            <h:panelGroup id="panelGrop" rendered="#{funcionarioC.mostra_toolbar}" >
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
+                             styleClass="painel_grid_noborder" >
+
+
+                    <p:outputLabel for="nome" value="Nome :" />
+                    <p:inputText id="nome" value="#{funcionarioC.funcionario.nome}" requiredMessage="Nome é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+
+                    <p:outputLabel for="email" value="E-mail :" />
+                    <p:inputText id="email" value="#{funcionarioC.funcionario.email}"  type="email" requiredMessage="E-mail é obrigatório" 
+                                 required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="telefone" value="Telefone: " />
+                    <p:inputMask id="telefone" value="#{funcionarioC.funcionario.telefone}" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="matricula" value="Matricula :" />
+                    <p:inputText id="matricula" value="#{funcionarioC.funcionario.matricula}" requiredMessage="Matricula é obrigatório" 
+                                 required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="cep" value="Cep :" />
+                    <p:inputText id="cep" value="#{funcionarioC.endereco.cep}"  style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="logradouro" value="Logradouro :" />
+                    <p:inputText id="logradouro" value="#{funcionarioC.endereco.logradouro}" requiredMessage="Logradouro é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="bairro" value="Bairro :" />
+                    <p:inputText id="bairro" value="#{funcionarioC.endereco.bairro}" requiredMessage="Bairro é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="cidade" value="Cidade :" />
+                    <p:inputText id="cidade" value="#{funcionarioC.endereco.cidade}" requiredMessage="Cidade é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="estado" value="Estado :" />
+                    <p:inputText id="estado" value="#{funcionarioC.endereco.estado}" requiredMessage="Estado é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="pais" value="País :" />
+                    <p:inputText id="pais" value="#{funcionarioC.endereco.pais}" requiredMessage="País é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+
+                </p:panelGrid>
+            </h:panelGroup>
+            <!--fim da tela de cadastro-->
+
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
