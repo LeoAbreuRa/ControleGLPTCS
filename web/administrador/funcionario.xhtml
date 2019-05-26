@@ -42,7 +42,7 @@
 
             <!--inicio da tela de pesquisa-->
             <h:panelGroup id="aba1" rendered="#{!funcionarioC.mostrar_toolbar}" >
-                <p:panelGrid id="panelGridPesq" columns="2"  columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
+                <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
 
                     <p:outputLabel for="nome_pesquisa" value="Nome :" />
                     <p:inputText id="nome_pesquisa" value="#{funcionarioC.funcionario.nome}" style="width: 100%" />
@@ -50,21 +50,21 @@
 
                 </p:panelGrid>
 
-                <p:dataTable id="dadosFuncionario" value="#{funcionarioC.modelFuncionarios}" var="funcionario" 
+                <p:dataTable id="dadosFuncionario" value="#{funcionarioC.modelFuncionarios}" var="funcionario" reflow="true"
                              style="margin-top: 20px;"  emptyMessage="Nenhum funcionário encontrado">
-                    <p:column headerText="Nome" >
+                    <p:column headerText="Nome" priority="1">
                         <h:outputText value="#{funcionario.nome}" />
                     </p:column>
-                    <p:column headerText="E-mail">
+                    <p:column headerText="E-mail" priority="1">
                         <h:outputText value="#{funcionario.email}" />
                     </p:column>
-                    <p:column headerText="Telefone" >
+                    <p:column headerText="Telefone" priority="1">
                         <h:outputText value="#{funcionario.telefone}" />
                     </p:column>
-                    <p:column headerText="CPF" >
+                    <p:column headerText="CPF" priority="1">
                         <h:outputText value="#{funcionario.cpf}" />
                     </p:column>
-                    <p:column headerText="Matricula" >
+                    <p:column headerText="Matricula" priority="1">
                         <h:outputText value="#{funcionario.matricula}" />
                     </p:column>
 
@@ -94,7 +94,7 @@
 
             <!--inicio da tela de cadastro (salvar e alterar)-->
             <h:panelGroup id="panelGrop" rendered="#{funcionarioC.mostrar_toolbar}" >
-                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-4" 
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
 
 
