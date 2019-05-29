@@ -10,6 +10,7 @@ import br.com.senac.dao.HibernateUtil;
 import br.com.senac.dao.ProdutoDao;
 import br.com.senac.dao.ProdutoDaoImpl;
 import br.com.senac.model.Produto;
+import br.com.senac.model.Produto_;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.hibernate.Session;
  * @author Pedrão Master
  */
 
-@ManagedBean(name ="ProdutoP")
+@ManagedBean(name ="produtoC")
 @ViewScoped
 public class ProdutoControle  implements Serializable {
       private boolean mostrar_Toolbar;
@@ -104,6 +105,12 @@ public class ProdutoControle  implements Serializable {
         mostrar_Toolbar = !mostrar_Toolbar;
         produto = modelProduto.getRowData();
 
+    }
+    
+    public void carregarParaAlterar() {
+        mostrar_Toolbar = !mostrar_Toolbar;
+        produto = modelProduto.getRowData();
+        
     }
 
     public void excluir() {
