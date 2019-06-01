@@ -13,12 +13,12 @@
             <h:outputStylesheet library="css" name="layout.css" />
             <h:outputStylesheet library="css" name="componentes.css" />
 
-            <!--Incluí para formatar layout dashboard com o tema do Admin LTE - Rodrigo M. 05/09/2016 15:10 --> 
+            
             <h:outputStylesheet library="dist/css" name="AdminLTE.min.css" />
-            <!--<h:outputStylesheet library="dist/css/skins" name="_all-skins.min.css" />-->
+            
             <link rel="stylesheet" type="text/css"
                   href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
-            <!--Fim-->
+            
 
             <h:outputScript target="body" library="primefaces" name="jquery/jquery.js"/>
             <h:outputScript target="body" library="js" name="apps.js"/>
@@ -246,11 +246,15 @@
                 </ul>
             </nav>
         </aside>
+        
 
         <section class="jr-conteudo js-conteudo">
             <ui:insert name="conteudo" />
         </section>    
 
-
+        <header class="br-bottom">
+            <span class="rodape">2019</span>
+        </header>
+        
     </h:body>
 </html>
