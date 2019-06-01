@@ -10,9 +10,7 @@ import br.com.senac.dao.HibernateUtil;
 import br.com.senac.dao.ProdutoDao;
 import br.com.senac.dao.ProdutoDaoImpl;
 import br.com.senac.model.Produto;
-import br.com.senac.model.Produto_;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -30,9 +28,6 @@ import org.hibernate.Session;
 @ViewScoped
 public class ProdutoControle  implements Serializable {
       private boolean mostrar_Toolbar;
-      private String pesqProduto = "";
-      private String pesqPorTipo = "";
-      private String pesqPorMarca = "";
       private Session session;
       private ProdutoDao dao;
       private Produto produto;
@@ -42,22 +37,10 @@ public class ProdutoControle  implements Serializable {
       private void abreSessao() {
         if (session == null || !session.isOpen()) {
             session = HibernateUtil.abreSessao();
+        }else if (!session.isOpen()) {
+            session = HibernateUtil.abreSessao();
         }
     }
-      public ProdutoControle() {
-        dao = new ProdutoDaoImpl();
-    }
-
-    public void mostrar_Toolbar() {
-        produto = new Produto();
-        produtos = new ArrayList();
-        pesqProduto = "";
-        pesqPorTipo = "";
-        pesqPorMarca = "";
-        
-        mostrar_Toolbar = !mostrar_Toolbar;
-    }
-    
      public void novo() {
         mostrar_Toolbar = !mostrar_Toolbar;
     }
@@ -66,19 +49,19 @@ public class ProdutoControle  implements Serializable {
         mostrar_Toolbar = !mostrar_Toolbar;
     }
     
+    public void preparaAlterar() {
+        mostrar_Toolbar = !mostrar_Toolbar;
+    }
+    
     public void pesquisar() {
         dao = new ProdutoDaoImpl();
         try {
             abreSessao();
-
-            produtos = dao.listarPorTipo(pesqPorTipo, session);
-            produtos = dao.listarPorMarca(pesqPorMarca, session);
+            produtos = dao.pesquisaPorNome(produto.getTipoProduto(), session);
             modelProduto = new ListDataModel(produtos);
-            pesqPorMarca = null;
-            pesqPorTipo = null;
-            
-        } catch (HibernateException ex) {
-            System.err.println("Erro ao pesquisar produto:\n" + ex.getMessage());
+            produto.setTipoProduto(null);
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar produto por tipo: " + e.getMessage());
         } finally {
             session.close();
         }
@@ -90,10 +73,10 @@ public class ProdutoControle  implements Serializable {
             abreSessao();
             dao.salvarOuAlterar(produto, session);
 
-            Mensagem.salvar("Equipamento ");
-        } catch (Exception ex) {
+            Mensagem.salvar("Produto ");
+        } catch (HibernateException ex) {
             Mensagem.mensagemError("Erro ao salvar\nTente novamente");
-            System.err.println("Erro ao pesquisar equipamento:\n" + ex.getMessage());
+            System.err.println("Erro ao pesquisar Produto:\n" + ex.getMessage());
         } finally {
             produto = new Produto();
 
@@ -134,20 +117,12 @@ public class ProdutoControle  implements Serializable {
         return produto;
     }
 
-    public boolean isMostrarToolbar() {
+    public boolean isMostrar_Toolbar() {
         return mostrar_Toolbar;
     }
 
-    public void setMostrarToolbar(boolean mostrarToolbar) {
-        this.mostrar_Toolbar = mostrarToolbar;
-    }
-
-    public String getPesqProduto() {
-        return pesqProduto;
-    }
-
-    public void setPesqProduto(String pesqProduto) {
-        this.pesqProduto = pesqProduto;
+    public void setMostrar_Toolbar(boolean mostrar_Toolbar) {
+        this.mostrar_Toolbar = mostrar_Toolbar;
     }
 
     public Session getSession() {

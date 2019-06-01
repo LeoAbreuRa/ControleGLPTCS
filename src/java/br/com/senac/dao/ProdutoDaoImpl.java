@@ -27,21 +27,21 @@ public class ProdutoDaoImpl extends BaseDaoImpl<Produto, Long> implements Produt
 
     @Override
     public List<Produto> pesquisaPorNome(String tipoProduto, Session session) throws HibernateException {
-        Query consulta = session.createQuery("from Produto where nome like :tipoProduto");
-        consulta.setParameter("tipoProduto", "%" + tipoProduto + "%");
+        Query consulta = session.createQuery("from Produto p where p.tipoProduto like :tipoProduto");
+        consulta.setParameter("tipoProduto", tipoProduto + "%");
         return consulta.list();
     }
 
     @Override
     public List<Produto> listarPorTipo(String tipoProduto, Session session) throws HibernateException {
-        Query consulta = session.createQuery("from Produto where nome like :tipoProduto");
-        consulta.setParameter("tipoProduto", "%" + tipoProduto + "%");
+        Query consulta = session.createQuery("from Produto p where p.tipoProduto like :tipoProduto");
+        consulta.setParameter("tipoProduto", tipoProduto + "%");
         return consulta.list();
     }
 
     @Override
     public List<Produto> listarPorMarca(String marcaProduto, Session session) throws HibernateException {
-         Query consulta = session.createQuery("from Produto where nome like :marcaProduto");
+         Query consulta = session.createQuery("from Produto p where p.marcaProduto like :marcaProduto");
         consulta.setParameter("marcaProduto", "%" + marcaProduto + "%");
         return consulta.list();
     }

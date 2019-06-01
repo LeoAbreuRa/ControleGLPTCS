@@ -50,8 +50,11 @@
 
                 </p:panelGrid>
 
-                <p:dataTable id="dadosFuncionario" value="#{funcionarioC.modelFuncionarios}" var="funcionario" reflow="true"
-                             style="margin-top: 20px;"  emptyMessage="Nenhum funcionário encontrado">
+                <p:dataTable id="dadosFuncionario" value="#{funcionarioC.modelFuncionarios}" var="funcionario" reflow="true" paginator="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum funcionário encontrado" rows="10" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
+                             rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Nome" priority="1">
                         <h:outputText value="#{funcionario.nome}" />
                     </p:column>

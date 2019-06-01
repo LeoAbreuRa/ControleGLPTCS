@@ -77,10 +77,6 @@ public class Produto implements Serializable {
     public void setMarcaProduto(String marcaProduto) {
         this.marcaProduto = marcaProduto;
     }
-    
-    public void listarTodosProdutos(){
-        
-    }
 
     @Override
     public int hashCode() {
