@@ -31,99 +31,74 @@ import org.hibernate.Session;
 @ManagedBean(name ="clienteC")
 @ViewScoped
 public class ClienteControle implements Serializable {
-    
-    private boolean mostrarToolbar = false;
-    private String pesqNomeCliente = "";
-    private String pesqCnpj;
-    private String pesqNomeSoc;
-    
-    private Session session;
-    private ClienteDao dao;
+  
     private Cliente cliente;
-    private List<Cliente> clientes;
-    private DataModel<Cliente> modelClientes;
+    private ClienteDao clienteDao;
+    private List<Endereco> enderecos;
     private Endereco endereco;
+    private Session session;
+    private DataModel<Cliente> modelClientes;
+    private List<Cliente> clientes;
     private Caminhao caminhao;
+    private ClienteDao dao;
+    private EnderecoDao enderecoDao;
+    private boolean mostrar_toolbar;
     
-   private EnderecoDao enderecoDao;
-    
+   
     private void abreSessao(){
         if (session == null || !session.isOpen()){
             session = HibernateUtil.abreSessao();
+       } else if (!session.isOpen()) {
+            session = HibernateUtil.abreSessao();
         }
     }
-    
-    private void mudarToolbar(){
-        cliente = new Cliente();
-        clientes = new ArrayList();
-        pesqNomeCliente ="";
-        mostrarToolbar = !mostrarToolbar;
+ public void novo() {
+        mostrar_toolbar = !mostrar_toolbar;
     }
+    
+    public void novaPesquisa() {
+        mostrar_toolbar = !mostrar_toolbar;
+    }
+
+    public void preparaAlterar() {
+        mostrar_toolbar = !mostrar_toolbar;
+    }
+
     
     public void pesquisar(){
         dao = new ClienteDaoImpl();
         try{
             abreSessao();
-          
-            if (!pesqNomeCliente.equals("")){
-                clientes = dao.pesquisaPorNome(pesqNomeCliente, session);
-            }else if(!pesqCnpj.equals("")) {
-             cliente = dao.pesquisarCNPJ(pesqCnpj, session);
-            }else if(!pesqNomeSoc.equals("")){
-                cliente = (Cliente) dao.pesquisarNomeSocial(pesqNomeSoc, session);
-                
-            }else{
-                 clientes = dao.listaTodos(session);
-            }     
-        
+            clientes = clienteDao.pesquisaPorNome(cliente.getNome(), session);
             modelClientes = new ListDataModel(clientes);
-            pesqNomeCliente = null;
-            pesqCnpj = null;
-            pesqNomeSoc = null;
-            
-   
-    }catch (HibernateException ex){
-            System.err.println("Erro ao pesquisar cliente:\n" + ex.getMessage());
-    }finally {
-           session.close();
-        }
-}
-
-
-public void salvar(){
-    dao = new ClienteDaoImpl();
-    
-    try {
-        abreSessao();
-        cliente.setEndereco(endereco);
-        endereco.setPessoa(cliente);
-        dao.salvarOuAlterar(cliente, session);
-        Mensagem.salvar("Cliente " + cliente.getNome());
-        
-    } catch (Exception ex) {
-        Mensagem.mensagemError("Erro ao salvar\nTente novamente");
-        System.err.println("Erro ao pesquisar cliente:\n" + ex.getMessage());
-               
-    }finally{
-        cliente = new Cliente();
-        session.close();
+            cliente.setNome(null);
+        }catch (Exception e){
+            System.out.println("erro ao pesquisar o cliente: " + e.getMessage());
+        }finally {
+            session.close();
+        }            
     }
+
+public void limpar(){
+    cliente = new Cliente();
 }
-public void alterarCliente(){
-    mostrarToolbar = !mostrarToolbar;
+
+public void carregarParaAlterar(){
+    mostrar_toolbar = !mostrar_toolbar;
     cliente = modelClientes.getRowData();
- //   endereco = (Endereco) cliente.getEnderecos();
+    endereco = cliente.getEndereco();
 }
+
     public void excluir(){
         cliente = modelClientes.getRowData();
         dao = new ClienteDaoImpl();
+        abreSessao();
         try {
-            abreSessao();
             dao.remover(cliente, session);
-            cliente = null;
-            modelClientes = null;
+            clientes.remove(cliente);
+            modelClientes = new ListDataModel(clientes);
             Mensagem.excluir("Cliente" + cliente.getNome());
-            cliente = new Cliente();
+           limpar();
         } catch (Exception ex) {
             System.out.println("Erro ao excluir cliente\n" + ex.getMessage());
         }finally{
@@ -131,38 +106,68 @@ public void alterarCliente(){
         }
 }
     
+    public void salvar(){
+    dao = new ClienteDaoImpl();
+    abreSessao();
+    try {
+        abreSessao();
+        cliente.setEndereco(endereco);
+        endereco.setPessoa(cliente);
+        dao.salvarOuAlterar(cliente, session);
+        Mensagem.salvar("Cliente " + cliente.getNome());
+        cliente = null;
+        endereco = null;
+        
+    } catch (HibernateException ex) {
+        Mensagem.mensagemError("Erro ao salvar\nTente novamente");
+        System.err.println("Erro ao pesquisar cliente:\n" + ex.getMessage());
+    }catch (Exception e) {
+        System.out.println("Erro no salvar clienteDao Controle" + e.getMessage());
+    }finally{
+       // cliente = new Cliente();
+        session.close();
+    }
+    }
+    public void limparTela(){
+        limpar();
+    }
+
+    public Cliente getCliente() {
+        if (cliente == null) {
+            cliente = new Cliente();
+        }
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public ClienteDao getClienteDao() {
+        return clienteDao;
+    }
+
+    public void setClienteDao(ClienteDao clienteDao) {
+        this.clienteDao = clienteDao;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
     
 
-    public boolean isMostrarToolbar() {
-        return mostrarToolbar;
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
-    public void setMostrarToolbar(boolean mostrarToolbar) {
-        this.mostrarToolbar = mostrarToolbar;
+    public Endereco getEndereco() {
+        if (endereco == null) {
+            endereco = new Endereco();
     }
-
-    public String getPesqNomeCliente() {
-        return pesqNomeCliente;
+        return endereco;
     }
-
-    public void setPesqNomeCliente(String pesqNomeCliente) {
-        this.pesqNomeCliente = pesqNomeCliente;
-    }
-
-    public String getPesqCnpj() {
-        return pesqCnpj;
-    }
-
-    public void setPesqCnpj(String pesqCnpj) {
-        this.pesqCnpj = pesqCnpj;
-    }
-
-    public String getPesqNomeSoc() {
-        return pesqNomeSoc;
-    }
-
-    public void setPesqNomeSoc(String pesqNomeSoc) {
-        this.pesqNomeSoc = pesqNomeSoc;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public Session getSession() {
@@ -173,20 +178,12 @@ public void alterarCliente(){
         this.session = session;
     }
 
-    public ClienteDao getDao() {
-        return dao;
+    public DataModel<Cliente> getModelClientes() {
+        return modelClientes;
     }
 
-    public void setDao(ClienteDao dao) {
-        this.dao = dao;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setModelClientes(DataModel<Cliente> modelClientes) {
+        this.modelClientes = modelClientes;
     }
 
     public List<Cliente> getClientes() {
@@ -197,22 +194,6 @@ public void alterarCliente(){
         this.clientes = clientes;
     }
 
-    public DataModel<Cliente> getModelClientes() {
-        return modelClientes;
-    }
-
-    public void setModelClientes(DataModel<Cliente> modelClientes) {
-        this.modelClientes = modelClientes;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public Caminhao getCaminhao() {
         return caminhao;
     }
@@ -221,4 +202,30 @@ public void alterarCliente(){
         this.caminhao = caminhao;
     }
 
+    public ClienteDao getDao() {
+        return dao;
+    }
+
+    public void setDao(ClienteDao dao) {
+        this.dao = dao;
+    }
+
+    public EnderecoDao getEnderecoDao() {
+        return enderecoDao;
+    }
+
+    public void setEnderecoDao(EnderecoDao enderecoDao) {
+        this.enderecoDao = enderecoDao;
+    }
+
+    public boolean isMostrar_toolbar() {
+        return mostrar_toolbar;
+    }
+
+    public void setMostrar_toolbar(boolean mostrar_toolbar) {
+        this.mostrar_toolbar = mostrar_toolbar;
+    }
+    
 }
+
+    
