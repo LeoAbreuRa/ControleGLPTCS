@@ -10,7 +10,7 @@
     <ui:define name="conteudo">
         <h1 class="jr-titulo1">Funcionário</h1>
 
-        <h:form id="form_pesquisa">
+        <h:form id="form_pesquisa" style="align-content: center" >
 
             <!--mostra a toolbar se mostra_toolbar == true-->
             <p:toolbar styleClass="toolbar" rendered="#{!funcionarioC.mostrar_toolbar}">
@@ -112,14 +112,18 @@
                     <p:inputMask id="telefone" value="#{funcionarioC.funcionario.telefone}" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="cpf" value="CPF: " />
-                    <p:inputMask id="cpf" value="#{funcionarioC.funcionario.cpf}" mask="999.999.999-99" style="width: 100%; max-width: 600px;"/>
+                    <p:inputMask id="cpf" value="#{funcionarioC.funcionario.cpf}" required="true" 
+                                 requiredMessage="CPF é obrigatório" mask="999.999.999-99" 
+                                 style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="matricula" value="Matricula :" />
                     <p:inputText id="matricula" value="#{funcionarioC.funcionario.matricula}" requiredMessage="Matricula é obrigatório" 
                                  required="true" style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="cep" value="Cep :" />
-                    <p:inputText id="cep" value="#{funcionarioC.endereco.cep}"  style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="cep" value="#{funcionarioC.endereco.cep}"  style="width: 100%; max-width: 600px;"
+                                 required="true" requiredMessage="Cep é obrigatório"
+                                 />
                     
                     <p:outputLabel for="logradouro" value="Logradouro :" />
                     <p:inputText id="logradouro" value="#{funcionarioC.endereco.logradouro}" requiredMessage="Logradouro é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
