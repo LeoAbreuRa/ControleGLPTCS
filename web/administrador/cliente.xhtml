@@ -12,7 +12,6 @@
 
         <h:form id="form_pesquisa" style="align-content: center" >
 
-           
             <p:toolbar styleClass="toolbar" rendered="#{!clienteC.mostrar_toolbar}">
                 <p:toolbarGroup  >
                     <p:commandButton value="Pesquisar" actionListener="#{clienteC.pesquisar()}"
@@ -22,7 +21,7 @@
                 </p:toolbarGroup>
             </p:toolbar>
 
-           
+
             <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{clienteC.mostrar_toolbar}">
                 <p:toolbarGroup  >
                     <p:commandButton value="Salvar" action="#{clienteC.salvar()}"  update="panelGrop" />
@@ -40,7 +39,6 @@
 
             <p:messages id="mens" autoUpdate="true" />
 
-            <!--inicio da tela de pesquisa-->
             <h:panelGroup id="aba1" rendered="#{!clienteC.mostrar_toolbar}" >
                 <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
 
@@ -70,8 +68,8 @@
                     <p:column headerText="CNPJ" priority="1">
                         <h:outputText value="#{cliente.cnpj}" />
                     </p:column>
-                    
-                    
+
+
 
                     <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" >
                         <p:commandButton icon="ui-icon-pencil" title="Alterar"
@@ -95,9 +93,8 @@
                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" 
                                  icon="ui-icon-close" />
             </p:confirmDialog>
-            <!--fim da tela de pesquisa-->
 
-            <!--inicio da tela de cadastro (salvar e alterar)-->
+
             <h:panelGroup id="panelGrop" rendered="#{clienteC.mostrar_toolbar}" >
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
@@ -111,38 +108,37 @@
                     <p:outputLabel for="email" value="E-mail :" />
                     <p:inputText id="email" value="#{clienteC.cliente.email}"  type="email" requiredMessage="E-mail é obrigatório" 
                                  required="true" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="telefone" value="Telefone: " />
                     <p:inputMask id="telefone" value="#{clienteC.cliente.telefone}" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="cnpj" value="CNPJ: " />
                     <p:inputMask id="cnpj" value="#{clienteC.cliente.cnpj}" required="true" 
                                  requiredMessage="CNPJ é obrigatório" mask="999.999.999-99" 
                                  style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="cep" value="Cep :" />
                     <p:inputText id="cep" value="#{clienteC.endereco.cep}"  style="width: 100%; max-width: 600px;"
                                  required="true" requiredMessage="Cep é obrigatório"
                                  />
-                    
+
                     <p:outputLabel for="logradouro" value="Logradouro :" />
                     <p:inputText id="logradouro" value="#{clienteC.endereco.logradouro}" requiredMessage="Logradouro é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="bairro" value="Bairro :" />
                     <p:inputText id="bairro" value="#{clienteC.endereco.bairro}" requiredMessage="Bairro é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="cidade" value="Cidade :" />
                     <p:inputText id="cidade" value="#{clienteC.endereco.cidade}" requiredMessage="Cidade é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="estado" value="Estado :" />
                     <p:inputText id="estado" value="#{clienteC.endereco.estado}" requiredMessage="Estado é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="pais" value="País :" />
                     <p:inputText id="pais" value="#{clienteC.endereco.pais}" requiredMessage="País é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
 
                 </p:panelGrid>
             </h:panelGroup>
-            <!--fim da tela de cadastro-->
 
 
         </h:form>
