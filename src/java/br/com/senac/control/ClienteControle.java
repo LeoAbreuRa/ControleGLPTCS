@@ -14,13 +14,11 @@ import br.com.senac.model.Caminhao;
 import br.com.senac.model.Cliente;
 import br.com.senac.model.Endereco;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
-import javax.swing.ListModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
