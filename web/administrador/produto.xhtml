@@ -44,14 +44,17 @@
             <h:panelGroup id="aba1" rendered="#{!produtoC.mostrar_Toolbar}" >
                 <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
 
-                    <p:outputLabel for="nome_pesquisa" value="Produto :" />
+                    <p:outputLabel for="nome_pesquisa" value="Produto :" class="label_pesquisa"/>
                     <p:inputText id="nome_pesquisa" value="#{produtoC.produto.tipoProduto}" style="width: 100%" />
                     <p:spacer />
 
                 </p:panelGrid>
 
-                <p:dataTable id="dadosProduto" value="#{produtoC.modelProduto}" var="produto" 
-                             style="margin-top: 20px;"  emptyMessage="Nenhum produto encontrado">
+                <p:dataTable id="dadosProduto" value="#{produtoC.modelProduto}" var="produto" reflow="true" paginator="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum produto encontrado" rows="10" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
+                             rowsPerPageTemplate="5,10,15">
                    <p:column headerText="Produto" priority="1">
                         <h:outputText value="#{produto.tipoProduto}" />
                     </p:column>

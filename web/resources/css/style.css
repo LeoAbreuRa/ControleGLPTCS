@@ -5,7 +5,7 @@ and open the template in the editor.
 */
 /* 
     Created on : 26/05/2016, 00:31:26
-    Author     : silvio
+    Author     : Leonardo
 */
 
 body{
@@ -48,6 +48,14 @@ body{
 
 .jr-menu ul i {
     margin-right: 6px;
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 24px;
+    margin-bottom: 15px;
+}
+
+.jr-menu ul a{
+    font-size: 23px;
 }
 
 .jr-menu ul a:hover, .jr-menu ul a:focus {
@@ -72,7 +80,9 @@ body{
 }
 
 .jr-titulo1{
-    font-size: 1.5em;
+    font-size: 26px;
+    margin-top: 50px;
+    font-family: fantasy;
 }
 
 

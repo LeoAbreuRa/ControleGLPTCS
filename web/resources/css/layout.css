@@ -69,7 +69,6 @@ body{
     margin-left: -211px;
     transition: margin-left 0.8s;
     bottom: 0;
-    z-index: 9998;    
     background-color: #009999;
     border-right: 1px solid #aeaeae;
 }
@@ -96,6 +95,8 @@ body{
     margin-top: 50px;
     transition: margin-left 0.5s;
 }
+
+
 
 
 /*reponsivo*/
