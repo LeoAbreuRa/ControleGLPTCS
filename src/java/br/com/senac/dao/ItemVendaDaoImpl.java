@@ -6,10 +6,12 @@
 package br.com.senac.dao;
 
 
+import br.com.senac.model.Cliente;
 import br.com.senac.model.ItemVenda;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -20,12 +22,17 @@ public class ItemVendaDaoImpl extends BaseDaoImpl<ItemVenda, Long> implements It
 
     @Override
     public ItemVenda pesquisaEntidadeId(Long id, Session session) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return (ItemVenda) session.get(ItemVenda.class, id);
     }
 
     @Override
     public List<ItemVenda> listaTodos(Session session) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return session.createQuery("from ItemVenda").list();
+    }
+
+    
+    public ItemVenda pesquisaPorNome(Long id, Session session) throws HibernateException {
+       return (ItemVenda) session.get(ItemVenda.class, id); 
     }
 
     @Override
