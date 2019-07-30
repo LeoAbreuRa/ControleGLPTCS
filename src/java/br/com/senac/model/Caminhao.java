@@ -7,8 +7,6 @@ package br.com.senac.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,9 +38,15 @@ public class Caminhao implements Serializable {
         this.nomeMotorista = nomeMotorista;
         this.placaCaminhao = placaCaminhao;
     }
-    
-    
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
     public Long getId() {
         return id;
     }

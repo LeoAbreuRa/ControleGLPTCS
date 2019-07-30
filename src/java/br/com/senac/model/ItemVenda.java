@@ -6,12 +6,12 @@
 package br.com.senac.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -20,31 +20,27 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "ItemVenda")
-@PrimaryKeyJoinColumn(name = "idCliente")
+@Table(name = "itemVenda")
 public class ItemVenda implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "idCliente")
-    private Cliente cliente;
-    @ManyToOne
-    @JoinColumn(name = "idFuncionario")
-    private Funcionario funcionario;
+    
+    @Column(nullable = false)
+    private int quantidade;
+    
     @ManyToOne
     @JoinColumn(name = "idProduto")
     private Produto produto;
     
-
-    public ItemVenda(Long id, Cliente cliente, Funcionario funcionario, Produto produto) {
-        this.id = id;
-        this.cliente = cliente;
-        this.funcionario = funcionario;
-        this.produto = produto;
-    }
+    @ManyToOne
+    @JoinColumn(name = "idPedido")
+    private Pedido pedido;
     
+
+    public ItemVenda() {
+    }    
     
     public Long getId() {
         return id;
@@ -54,20 +50,20 @@ public class ItemVenda implements Serializable {
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public Produto getProduto() {
@@ -79,9 +75,35 @@ public class ItemVenda implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "ItemVenda{" + "id=" + id + ", cliente=" + cliente + ", funcionario=" + funcionario + ", produto=" + produto + '}';
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ItemVenda other = (ItemVenda) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }  
     
     
     

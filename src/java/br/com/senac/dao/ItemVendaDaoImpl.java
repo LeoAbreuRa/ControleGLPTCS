@@ -31,7 +31,7 @@ public class ItemVendaDaoImpl extends BaseDaoImpl<ItemVenda, Long> implements It
     }
 
     
-    public ItemVenda pesquisaPorNome(Long id, Session session) throws HibernateException {
+    public ItemVenda pesquisaPorId(Long id, Session session) throws HibernateException {
        return (ItemVenda) session.get(ItemVenda.class, id); 
     }
 
