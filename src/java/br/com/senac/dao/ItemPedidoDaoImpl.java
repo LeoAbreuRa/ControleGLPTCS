@@ -27,7 +27,7 @@ public class ItemPedidoDaoImpl extends BaseDaoImpl<ItemPedido, Long> implements 
 
     @Override
     public List<ItemPedido> listaTodos(Session session) throws HibernateException {
-         return session.createQuery("from ItemVenda").list();
+         return session.createQuery("from ItemPedido").list();
     }
 
     
