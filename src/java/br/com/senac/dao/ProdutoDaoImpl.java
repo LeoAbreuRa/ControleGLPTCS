@@ -41,7 +41,7 @@ public class ProdutoDaoImpl extends BaseDaoImpl<Produto, Long> implements Produt
 
     @Override
     public List<Produto> listarPorMarca(String marcaProduto, Session session) throws HibernateException {
-         Query consulta = session.createQuery("from Produto p where p.marcaProduto like :marcaProduto");
+        Query consulta = session.createQuery("from Produto p where p.marcaProduto like :marcaProduto");
         consulta.setParameter("marcaProduto", "%" + marcaProduto + "%");
         return consulta.list();
     }

@@ -6,12 +6,12 @@
 package br.com.senac.dao;
 
 
-import br.com.senac.model.ItemVenda;
+import br.com.senac.model.ItemPedido;
 
 /**
  *
  * @author Pedrão Master
  */
-public interface ItemVendaDao extends BaseDao<ItemVenda, Long> {
+public interface ItemPedidoDao extends BaseDao<ItemPedido, Long> {
     
 }

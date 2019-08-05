@@ -41,7 +41,7 @@ public class Pedido implements Serializable {
     private Cliente cliente;
     
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<ItemVenda> itemVendas;
+    private List<ItemPedido> itemPedidos;
 
     public Long getId() {
         return id;
@@ -67,12 +67,12 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public List<ItemVenda> getItemVendas() {
-        return itemVendas;
+    public List<ItemPedido> getItemPedidos() {
+        return itemPedidos;
     }
 
-    public void setItemVendas(List<ItemVenda> itemVendas) {
-        this.itemVendas = itemVendas;
+    public void setItemPedidos(List<ItemPedido> itemPedidos) {
+        this.itemPedidos = itemPedidos;
     }
     
     

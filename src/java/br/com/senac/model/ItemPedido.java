@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "itemVenda")
-public class ItemVenda implements Serializable {
+public class ItemPedido implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,7 +39,7 @@ public class ItemVenda implements Serializable {
     private Pedido pedido;
     
 
-    public ItemVenda() {
+    public ItemPedido() {
     }    
     
     public Long getId() {
@@ -92,7 +92,7 @@ public class ItemVenda implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ItemVenda other = (ItemVenda) obj;
+        final ItemPedido other = (ItemPedido) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
